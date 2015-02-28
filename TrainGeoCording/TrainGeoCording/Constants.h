@@ -11,9 +11,9 @@
 @interface Constants : NSObject
 
 /// 駅名CSVファイル名
-#define CSV_FILE_NAME       @"station20141030free"
+extern NSString* const CSV_FILE_NAME;
 
 /// 駅名CSVファイル拡張子
-#define CSV_FILE_EXTENSION  @"CSV"
+extern NSString* const CSV_FILE_EXTENSION;
 
 @end

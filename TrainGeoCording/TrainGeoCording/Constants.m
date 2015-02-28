@@ -10,4 +10,7 @@
 
 @implementation Constants
 
+NSString* const CSV_FILE_NAME      = @"station20141030free";
+NSString* const CSV_FILE_EXTENSION = @"csv";
+
 @end

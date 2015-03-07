@@ -14,6 +14,10 @@
 		CE1E5EE71A98759E005B52A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1E5EE61A98759E005B52A1 /* Images.xcassets */; };
 		CE1E5EEA1A98759E005B52A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1E5EE81A98759E005B52A1 /* LaunchScreen.xib */; };
 		CE1E5EF61A98759E005B52A1 /* TrainGeoCordingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1E5EF51A98759E005B52A1 /* TrainGeoCordingTests.m */; };
+		CE5E9B501AAAD53D0047BD3B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5E9B4F1AAAD53D0047BD3B /* Constants.m */; };
+		CE5E9B521AAAD5580047BD3B /* station20141030free.csv in Resources */ = {isa = PBXBuildFile; fileRef = CE5E9B511AAAD5580047BD3B /* station20141030free.csv */; };
+		CE5E9B561AAAD5760047BD3B /* SearchNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5E9B541AAAD5760047BD3B /* SearchNameViewController.m */; };
+		CE5E9B571AAAD5760047BD3B /* SearchNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE5E9B551AAAD5760047BD3B /* SearchNameViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +44,12 @@
 		CE1E5EEF1A98759E005B52A1 /* TrainGeoCordingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainGeoCordingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1E5EF41A98759E005B52A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1E5EF51A98759E005B52A1 /* TrainGeoCordingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrainGeoCordingTests.m; sourceTree = "<group>"; };
+		CE5E9B4E1AAAD53D0047BD3B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		CE5E9B4F1AAAD53D0047BD3B /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		CE5E9B511AAAD5580047BD3B /* station20141030free.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = station20141030free.csv; sourceTree = "<group>"; };
+		CE5E9B531AAAD5760047BD3B /* SearchNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchNameViewController.h; sourceTree = "<group>"; };
+		CE5E9B541AAAD5760047BD3B /* SearchNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchNameViewController.m; sourceTree = "<group>"; };
+		CE5E9B551AAAD5760047BD3B /* SearchNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchNameViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +91,12 @@
 		CE1E5ED81A98759D005B52A1 /* TrainGeoCording */ = {
 			isa = PBXGroup;
 			children = (
+				CE5E9B531AAAD5760047BD3B /* SearchNameViewController.h */,
+				CE5E9B541AAAD5760047BD3B /* SearchNameViewController.m */,
+				CE5E9B551AAAD5760047BD3B /* SearchNameViewController.xib */,
+				CE5E9B511AAAD5580047BD3B /* station20141030free.csv */,
+				CE5E9B4E1AAAD53D0047BD3B /* Constants.h */,
+				CE5E9B4F1AAAD53D0047BD3B /* Constants.m */,
 				CE1E5EDD1A98759D005B52A1 /* AppDelegate.h */,
 				CE1E5EDE1A98759D005B52A1 /* AppDelegate.m */,
 				CE1E5EE01A98759D005B52A1 /* ViewController.h */,
@@ -199,7 +215,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE5E9B521AAAD5580047BD3B /* station20141030free.csv in Resources */,
 				CE1E5EE51A98759D005B52A1 /* Main.storyboard in Resources */,
+				CE5E9B571AAAD5760047BD3B /* SearchNameViewController.xib in Resources */,
 				CE1E5EEA1A98759E005B52A1 /* LaunchScreen.xib in Resources */,
 				CE1E5EE71A98759E005B52A1 /* Images.xcassets in Resources */,
 			);
@@ -222,6 +240,8 @@
 				CE1E5EE21A98759D005B52A1 /* ViewController.m in Sources */,
 				CE1E5EDF1A98759D005B52A1 /* AppDelegate.m in Sources */,
 				CE1E5EDC1A98759D005B52A1 /* main.m in Sources */,
+				CE5E9B501AAAD53D0047BD3B /* Constants.m in Sources */,
+				CE5E9B561AAAD5760047BD3B /* SearchNameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +434,7 @@
 				CE1E5EFB1A98759E005B52A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE1E5EFC1A98759E005B52A1 /* Build configuration list for PBXNativeTarget "TrainGeoCordingTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +443,7 @@
 				CE1E5EFE1A98759E005B52A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

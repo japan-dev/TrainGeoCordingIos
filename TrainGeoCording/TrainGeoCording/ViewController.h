@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchNameViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<SearchNameViewDelegate>
 
 
 @end

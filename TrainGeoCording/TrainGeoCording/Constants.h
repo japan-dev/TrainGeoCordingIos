@@ -16,4 +16,12 @@ extern NSString* const CSV_FILE_NAME;
 /// 駅名CSVファイル拡張子
 extern NSString* const CSV_FILE_EXTENSION;
 
+// user default
+extern NSString* const STATION_NAME_KEY;
+
+
+#define SCREEN_BOUNDS   ([UIScreen mainScreen].bounds)
+#define SIZE_X 320
+#define SIZE_Y 568
+
 @end

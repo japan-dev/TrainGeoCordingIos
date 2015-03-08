@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "SearchNameViewController.h"
 
-@interface ViewController : UIViewController<SearchNameViewDelegate>
+@interface ViewController : UIViewController<SearchNameViewDelegate, CLLocationManagerDelegate>
 
+@property(nonatomic) CLLocationManager* locationManager;
 
 @end
 

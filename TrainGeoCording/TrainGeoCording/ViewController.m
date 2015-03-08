@@ -63,6 +63,17 @@
     [self.view addSubview:stationLabel];
     
     
+    // 位置情報
+    _locationManager = [[CLLocationManager alloc]init];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = 1000.0;
+    
+    if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+    {
+        [_locationManager requestAlwaysAuthorization];
+    }
+    
+    [_locationManager startUpdatingLocation];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -88,7 +99,26 @@
     NSLog(@"%@", [selectStation objectForKey:@"station_name"]);
     NSLog(@"%@", [selectStation objectForKey:@"lon"]);
     NSLog(@"%@", [selectStation objectForKey:@"lat"]);
-    
+}
+
+#pragma mark - LocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    // 位置情報を取り出す
+    CLLocation *newLocation = [locations lastObject];
+    //緯度
+    CGFloat latitude = newLocation.coordinate.latitude;
+    //経度
+    CGFloat longitude = newLocation.coordinate.longitude;
+
+    NSLog(@"%f",latitude);
+    NSLog(@"%f",longitude);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"%@",@"位置情報が取得できませんでした。");
 }
 
 @end

@@ -94,7 +94,7 @@
         _distanceLabel = [[UILabel alloc] init];
         // getdistance
         int distance = [userDefault integerForKey:DISTANCE_KEY];
-        _distanceLabel.frame = CGRectMake((HARF_X - (150 / 2 )) * scaleX, 100 * scaleY, 150 * scaleX, 25 * scaleY);
+        _distanceLabel.frame = CGRectMake((HARF_X - (150 / 2 )) * scaleX, 120 * scaleY, 150 * scaleX, 25 * scaleY);
         [_distanceLabel setBackgroundColor:[UIColor greenColor]];
         NSString* distanceStr = @"";
         // km
@@ -107,7 +107,7 @@
             distanceStr = [NSString stringWithFormat:@"目的地まであと%dm",distance];
         }
         [_distanceLabel setText:distanceStr];
-        _distanceLabel.textAlignment = UITextAlignmentCenter;
+        _distanceLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:_distanceLabel];
     }
     

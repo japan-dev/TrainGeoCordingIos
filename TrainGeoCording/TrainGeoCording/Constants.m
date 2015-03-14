@@ -14,5 +14,6 @@ NSString* const CSV_FILE_NAME      = @"station20141030free";
 NSString* const CSV_FILE_EXTENSION = @"csv";
 // user default
 NSString* const STATION_NAME_KEY   = @"station_name_key";
+NSString* const DISTANCE_KEY = @"distance";
 
 @end

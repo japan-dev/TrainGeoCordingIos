@@ -18,7 +18,7 @@ extern NSString* const CSV_FILE_EXTENSION;
 
 // user default
 extern NSString* const STATION_NAME_KEY;
-
+extern NSString* const DISTANCE_KEY = @"distance";
 
 #define SCREEN_BOUNDS   ([UIScreen mainScreen].bounds)
 #define SIZE_X 320

@@ -17,6 +17,8 @@
 
 
 @property(nonatomic,assign) UIButton* stationNameBtn;
+@property(nonatomic) UILabel* distanceLabel;
+
 -(void)tapDestinationBtn:(UIButton*)button;
 
 

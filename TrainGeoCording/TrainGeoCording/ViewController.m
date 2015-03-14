@@ -33,6 +33,8 @@
     UIImage* offBtnImg = [UIImage imageNamed:@"button_off"];
     
     
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
+
     // ボタンの生成(ON)
     UIButton *btnOn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnOn setImage:onBtnImg forState:(UIControlStateNormal)];
@@ -86,8 +88,39 @@
         [_stationNameBtn setTitle:@"bbkdjflaj" forState:UIControlStateNormal];
     }
 
+    // 駅までの表示距離
+    {
+        _distanceLabel = [[UILabel alloc] init];
+        // getdistance
+        int distance = [userDefault integerForKey:DISTANCE_KEY];
+        _distanceLabel.frame = CGRectMake((HARF_X - (150 / 2 )) * scaleX, 100 * scaleY, 150 * scaleX, 25 * scaleY);
+        [_distanceLabel setBackgroundColor:[UIColor greenColor]];
+        NSString* distanceStr = @"";
+        // km
+        if(distance >= 1000){
+            distance /= 1000;
+            distanceStr = [NSString stringWithFormat:@"目的地まであと%dkm",distance];
+        }
+        // m
+        else{
+            distanceStr = [NSString stringWithFormat:@"目的地まであと%dm",distance];
+        }
+        [_distanceLabel setText:distanceStr];
+        _distanceLabel.textAlignment = UITextAlignmentCenter;
+        [self.view addSubview:_distanceLabel];
+    }
+    
+    /*
+    UILabel *stationLabel = [[UILabel alloc]init];
+    stationLabel.frame = CGRectMake((screenWidth / 2) - (150 / 2 * scaleX), 100 * scaleY, 150 * scaleX, 25 * scaleY);
+    //stationLabel.backgroundColor = [UIColor yellowColor];
+    stationLabel.textColor = [UIColor blueColor];
+    stationLabel.font = [UIFont fontWithName:@"AppleGothic" size:14];
+    stationLabel.textAlignment = UITextAlignmentCenter;
+    */
+    
     // 選択駅名取得
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
+    //NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
     NSString* stationName = [userDefault stringForKey:STATION_NAME_KEY];
     if([stationName length] <= 0){
         stationName = @"駅名を選択してください";

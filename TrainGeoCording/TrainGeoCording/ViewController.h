@@ -13,6 +13,12 @@
 @interface ViewController : UIViewController<SearchNameViewDelegate, CLLocationManagerDelegate>
 
 @property(nonatomic) CLLocationManager* locationManager;
+@property(nonatomic) NSString* stationName;
+
+
+@property(nonatomic,assign) UIButton* stationNameBtn;
+-(void)tapDestinationBtn:(UIButton*)button;
+
 
 @end
 

@@ -46,21 +46,54 @@
     [self.view addSubview:btnOff];
     
     // 駅名ラベル
+    /*
     UILabel *stationLabel = [[UILabel alloc]init];
     stationLabel.frame = CGRectMake((screenWidth / 2) - (150 / 2 * scaleX), 100 * scaleY, 150 * scaleX, 25 * scaleY);
     //stationLabel.backgroundColor = [UIColor yellowColor];
     stationLabel.textColor = [UIColor blueColor];
     stationLabel.font = [UIFont fontWithName:@"AppleGothic" size:14];
     stationLabel.textAlignment = UITextAlignmentCenter;
-    
+    */
+    // 駅名検索画面に遷移する為のボタン
+    {
+        UIColor *color = [UIColor greenColor];
+        
+        // 目的地
+        UIButton *btnDestination = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btnDestination setBackgroundColor:color];
+        btnDestination.frame = CGRectMake(40 * scaleX, 50 * scaleY, 50 * scaleX, 40 * scaleY);
+        [btnDestination setTitle:@"目的地" forState:UIControlStateNormal];
+        // ボタンタップイベントを追加
+        [btnDestination addTarget:self action:@selector(tapDestinationBtn:)
+                 forControlEvents:UIControlEventTouchDown];
+        [self.view addSubview:btnDestination];
+        
+        // 目的地表示ボタン
+        _stationNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _stationNameBtn.frame = CGRectMake((40 + 50) * scaleX, 50 * scaleY, (SIZE_X - 90 - 40) * scaleX, 40 * scaleY);
+        
+        [_stationNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_stationNameBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted]; //ハイライト時
+        // border
+        [[_stationNameBtn layer] setBorderColor:[[UIColor greenColor] CGColor]];
+        [[_stationNameBtn layer] setBorderWidth:1.0];
+
+        
+        // ボタンタップイベントを追加
+        [_stationNameBtn addTarget:self action:@selector(tapDestinationBtn:)
+                     forControlEvents:UIControlEventTouchDown];
+        [self.view addSubview:_stationNameBtn];
+        [_stationNameBtn setTitle:@"bbkdjflaj" forState:UIControlStateNormal];
+    }
+
     // 選択駅名取得
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
     NSString* stationName = [userDefault stringForKey:STATION_NAME_KEY];
     if([stationName length] <= 0){
         stationName = @"駅名を選択してください";
     }
-    stationLabel.text = stationName;
-    [self.view addSubview:stationLabel];
+    //stationLabel.text = _stationName;
+    //[self.view addSubview:stationLabel];
     
     
     // 位置情報
@@ -78,7 +111,17 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
+}
+
+/*
+    目的地ボタンをタップ
+    駅名入力画面に遷移する
+*/
+-(void)tapDestinationBtn:(UIButton*)button{
+    SearchNameViewController* v = [[SearchNameViewController alloc]init];
+    v.delegate = self;
+    [self presentViewController:v animated:YES completion:^{
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,6 +142,8 @@
     NSLog(@"%@", [selectStation objectForKey:@"station_name"]);
     NSLog(@"%@", [selectStation objectForKey:@"lon"]);
     NSLog(@"%@", [selectStation objectForKey:@"lat"]);
+    _stationName = [selectStation objectForKey:@"station_name"];
+    [_stationNameBtn setTitle:_stationName forState:(UIControlStateNormal)];
 }
 
 #pragma mark - LocationManagerDelegate

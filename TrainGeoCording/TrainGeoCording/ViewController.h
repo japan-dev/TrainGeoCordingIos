@@ -15,6 +15,9 @@
 @property(nonatomic) CLLocationManager* locationManager;
 @property(nonatomic) NSString* stationName;
 
+@property(nonatomic) CGFloat stationLat;
+@property(nonatomic) CGFloat stationLon;
+
 
 @property(nonatomic,assign) UIButton* stationNameBtn;
 -(void)tapDestinationBtn:(UIButton*)button;

@@ -37,6 +37,7 @@
     UIButton *btnOn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnOn setImage:onBtnImg forState:(UIControlStateNormal)];
     btnOn.frame = CGRectMake(40 * scaleX, 450 * scaleY, 70 * scaleX, 70 * scaleY);
+    [btnOn addTarget:self action:@selector(tapOnBtn:) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btnOn];
     
     // ボタン生成(OFF)
@@ -106,7 +107,8 @@
         [_locationManager requestAlwaysAuthorization];
     }
     
-    [_locationManager startUpdatingLocation];
+    _stationLat = 0.0f;
+    _stationLon = 0.0f;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -124,16 +126,14 @@
     }];
 }
 
+-(void)tapOnBtn:(UIButton*)button
+{
+    [_locationManager startUpdatingLocation];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-- (IBAction)btnSearchClick:(id)sender
-{
-    SearchNameViewController* v = [[SearchNameViewController alloc]init];
-    v.delegate = self;
-    [self presentViewController:v animated:YES completion:^{
-    }];
 }
 
 /// 駅検索delegate
@@ -144,6 +144,12 @@
     NSLog(@"%@", [selectStation objectForKey:@"lat"]);
     _stationName = [selectStation objectForKey:@"station_name"];
     [_stationNameBtn setTitle:_stationName forState:(UIControlStateNormal)];
+    
+    _stationLon = [[selectStation objectForKey:@"lon"] floatValue];
+    _stationLat = [[selectStation objectForKey:@"lat"] floatValue];
+    
+    NSLog(@"%f",_stationLat);
+    NSLog(@"%f",_stationLon);
 }
 
 #pragma mark - LocationManagerDelegate
@@ -159,6 +165,25 @@
 
     NSLog(@"%f",latitude);
     NSLog(@"%f",longitude);
+    
+    if(_stationLat == 0.0f && _stationLon == 0.0f)
+        return;
+    
+    // 2点の経緯・緯度を設定
+    double latA = latitude;
+    double lngA = longitude;
+    double latB = _stationLat;
+    double lngB = _stationLon;
+    
+    // 経緯・緯度からCLLocationを作成
+    CLLocation *A = [[CLLocation alloc] initWithLatitude:latA longitude:lngA];
+    CLLocation *B = [[CLLocation alloc] initWithLatitude:latB longitude:lngB];
+    
+    //　距離を取得
+    CLLocationDistance distance = [A distanceFromLocation:B];
+    
+    // 距離をコンソールに表示
+    NSLog(@"distance:%f", distance);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

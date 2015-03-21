@@ -27,6 +27,7 @@
     _scaleX = screenWidth / SIZE_X;
     _scaleY = screenHeight / SIZE_Y;
     
+    // get time
     
     // 画像の生成
     UIImage* onBtnImg = [UIImage imageNamed:@"button_on"];
@@ -65,7 +66,7 @@
         // 目的地
         UIButton *btnDestination = [UIButton buttonWithType:UIButtonTypeCustom];
         [btnDestination setBackgroundColor:color];
-        btnDestination.frame = CGRectMake(40 * _scaleX, 50 * _scaleY, 50 * _scaleX, 40 * _scaleY);
+        btnDestination.frame = CGRectMake(30 * _scaleX, 50 * _scaleY, 60 * _scaleX, 40 * _scaleY);
         [btnDestination setTitle:@"目的地" forState:UIControlStateNormal];
         // ボタンタップイベントを追加
         [btnDestination addTarget:self action:@selector(tapDestinationBtn:)
@@ -75,7 +76,7 @@
         // 目的地表示ボタン
         _stationNameBtn = [[UIButton alloc]init];
         _stationNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _stationNameBtn.frame = CGRectMake((40 + 50) * _scaleX, 50 * _scaleY, (SIZE_X - 90 - 40) * _scaleX, 40 * _scaleY);
+        _stationNameBtn.frame = CGRectMake((30 + 60) * _scaleX, 50 * _scaleY, (SIZE_X - 90 - 40) * _scaleX, 40 * _scaleY);
         
         [_stationNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_stationNameBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted]; //ハイライト時
@@ -98,8 +99,9 @@
         _distanceLabel = [[UILabel alloc] init];
         // getdistance
         int distance = [userDefault integerForKey:DISTANCE_KEY];
-        _distanceLabel.frame = CGRectMake((HARF_X - (150 / 2 )) * _scaleX, 120 * _scaleY, 150 * _scaleX, 25 * _scaleY);
-        [_distanceLabel setBackgroundColor:[UIColor greenColor]];
+        distance = 10000;
+        _distanceLabel.frame = CGRectMake((HARF_X - (220 / 2 )) * _scaleX, 312 * _scaleY, 220 * _scaleX, 25 * _scaleY);
+
         NSString* distanceStr = @"";
         // km
         if(distance >= 1000){
@@ -111,18 +113,13 @@
             distanceStr = [NSString stringWithFormat:@"目的地まであと%dm",distance];
         }
         [_distanceLabel setText:distanceStr];
+        // border
+        [[_distanceLabel layer] setBorderColor:[[UIColor greenColor] CGColor]];
+        [[_distanceLabel layer] setBorderWidth:1.0];
+        
         _distanceLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:_distanceLabel];
     }
-    
-    /*
-    UILabel *stationLabel = [[UILabel alloc]init];
-    stationLabel.frame = CGRectMake((screenWidth / 2) - (150 / 2 * _scaleX), 100 * _scaleY, 150 * _scaleX, 25 * _scaleY);
-    //stationLabel.backgroundColor = [UIColor yellowColor];
-    stationLabel.textColor = [UIColor blueColor];
-    stationLabel.font = [UIFont fontWithName:@"AppleGothic" size:14];
-    stationLabel.textAlignment = UITextAlignmentCenter;
-    */
     
     // 選択駅名取得
     //NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
@@ -263,7 +260,7 @@
 */
 -(void)LoadTrainImage{
     // rail
-    UIImageView *railImage = [[UIImageView alloc] initWithFrame:CGRectMake((HARF_X - 22.5) * _scaleX , 264 * _scaleY, 45 * _scaleX, 13 * _scaleY)];
+    UIImageView *railImage = [[UIImageView alloc] initWithFrame:CGRectMake((HARF_X - 22.5) * _scaleX , (264 + 10) * _scaleY, 45 * _scaleX, 13 * _scaleY)];
     railImage.image = [UIImage imageNamed:@"train_rail.png"];
     [self.view addSubview:railImage];
     
@@ -275,14 +272,11 @@
     }
     
     // Normal Animation
-    _trainImg = [[UIImageView alloc] initWithFrame:CGRectMake((HARF_X - 24.5) * _scaleX , 220 * _scaleY, 49 * _scaleX, 49 * _scaleY)];
+    _trainImg = [[UIImageView alloc] initWithFrame:CGRectMake((HARF_X - 24.5) * _scaleX , (220 + 10) * _scaleY, 49 * _scaleX, 49 * _scaleY)];
     _trainImg.animationImages = images;
     _trainImg.image = [UIImage imageNamed:@"train_off.png"];
     _trainImg.animationDuration = 2;
     [self.view addSubview:_trainImg];
-    
-
-    
 }
 
 /*

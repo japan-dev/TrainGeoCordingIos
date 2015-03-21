@@ -217,6 +217,7 @@
     NSLog(@"%f",latitude);
     NSLog(@"%f",longitude);
     
+    // 最初は無視
     if(_stationLat == 0.0f && _stationLon == 0.0f)
         return;
     
@@ -225,16 +226,27 @@
     double lngA = longitude;
     double latB = _stationLat;
     double lngB = _stationLon;
-    
     // 経緯・緯度からCLLocationを作成
     CLLocation *A = [[CLLocation alloc] initWithLatitude:latA longitude:lngA];
     CLLocation *B = [[CLLocation alloc] initWithLatitude:latB longitude:lngB];
-    
     //　距離を取得
     CLLocationDistance distance = [A distanceFromLocation:B];
-    
-    // 距離をコンソールに表示
     NSLog(@"distance:%f", distance);
+    // 距離を四捨五入する
+    distance = round(distance);
+    
+    // ラベルに表示する
+    NSString* distanceStr = @"";
+    // km
+    if(distance >= 1000){
+        distance /= 1000;
+        distanceStr = [NSString stringWithFormat:@"目的地まであと%dkm",(int)distance];
+    }
+    // m
+    else{
+        distanceStr = [NSString stringWithFormat:@"目的地まであと%dm",(int)distance];
+    }
+    _distanceLabel.text = distanceStr;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

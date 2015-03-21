@@ -42,4 +42,19 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    // アプリ起動中(フォアグラウンド)に通知が届いた場合
+    if(application.applicationState == UIApplicationStateActive) {
+        // ここに処理を書く
+    }
+    
+    // アプリがバックグラウンドにある状態で通知が届いた場合
+    if(application.applicationState == UIApplicationStateInactive) {
+        // ここに処理を書く
+    }
+    
+    // 通知領域から削除する
+    [[UIApplication sharedApplication] cancelLocalNotification:notification];
+}
+
 @end

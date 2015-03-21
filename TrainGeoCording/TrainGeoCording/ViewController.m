@@ -89,7 +89,7 @@
         [_stationNameBtn addTarget:self action:@selector(tapDestinationBtn:)
                      forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:_stationNameBtn];
-        [_stationNameBtn setTitle:@"bbkdjflaj" forState:UIControlStateNormal];
+        [_stationNameBtn setTitle:@"選択してください" forState:UIControlStateNormal];
     }
     
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
@@ -106,11 +106,11 @@
         // km
         if(distance >= 1000){
             distance /= 1000;
-            distanceStr = [NSString stringWithFormat:@"目的地まであと%dkm",distance];
+            distanceStr = [NSString stringWithFormat:@"あと%dkm",distance];
         }
         // m
         else{
-            distanceStr = [NSString stringWithFormat:@"目的地まであと%dm",distance];
+            distanceStr = [NSString stringWithFormat:@"あと%dm",distance];
         }
         [_distanceLabel setText:distanceStr];
         // border
@@ -125,7 +125,7 @@
     //NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
     NSString* stationName = [userDefault stringForKey:STATION_NAME_KEY];
     if([stationName length] <= 0){
-        stationName = @"駅名を選択してください";
+        stationName = @"選択してください";
     }
     //stationLabel.text = _stationName;
     //[self.view addSubview:stationLabel];
@@ -143,6 +143,8 @@
     
     _stationLat = 0.0f;
     _stationLon = 0.0f;
+    
+    _isPush = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -168,6 +170,7 @@
     [_trainImg startAnimating];
     // 位置情報取得開始
     [_locationManager startUpdatingLocation];
+    _isPush = NO;
 }
 
 /*
@@ -177,6 +180,10 @@
 {
     [_trainImg stopAnimating];
     [_locationManager stopUpdatingLocation];
+    _isPush = YES;
+    
+    // TODO:テストで5秒後に表示
+    [self addNotification:5];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -237,13 +244,20 @@
     // km
     if(distance >= 1000){
         distance /= 1000;
-        distanceStr = [NSString stringWithFormat:@"目的地まであと%dkm",(int)distance];
+        distanceStr = [NSString stringWithFormat:@"あと%dkm",(int)distance];
     }
     // m
     else{
-        distanceStr = [NSString stringWithFormat:@"目的地まであと%dm",(int)distance];
+        distanceStr = [NSString stringWithFormat:@"あと%dm",(int)distance];
     }
     _distanceLabel.text = distanceStr;
+    
+    if(distance <= 100 && !_isPush)
+    {
+        // 通知する
+        [self addNotification:1];
+        _isPush = YES;
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -289,6 +303,23 @@
 -(void)StopTrainAnimation{
     [_trainImg stopAnimating];
 }
- 
+
+/// 通知追加
+-(void)addNotification:(CGFloat)sec
+{
+    // インスタンス生成
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    // 秒後に通知をする（設定は秒単位）
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:sec];
+    // タイムゾーンの設定
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    // 通知時に表示させるメッセージ内容
+    notification.alertBody = @"到着しました！";
+    // 通知に鳴る音の設定
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    
+    // 通知の登録
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
 
 @end

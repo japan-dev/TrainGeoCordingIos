@@ -25,6 +25,9 @@
 @property(nonatomic) UIButton* stationNameBtn;
 @property(nonatomic) UILabel* distanceLabel;
 
+/// 通知フラグ
+@property(nonatomic) BOOL isPush;
+
 // value
 @property float scaleX;
 @property float scaleY;

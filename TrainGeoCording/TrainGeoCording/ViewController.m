@@ -72,6 +72,7 @@
         [self.view addSubview:btnDestination];
         
         // 目的地表示ボタン
+        _stationNameBtn = [[UIButton alloc]init];
         _stationNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _stationNameBtn.frame = CGRectMake((40 + 50) * scaleX, 50 * scaleY, (SIZE_X - 90 - 40) * scaleX, 40 * scaleY);
         

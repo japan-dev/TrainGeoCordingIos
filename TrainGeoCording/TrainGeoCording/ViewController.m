@@ -24,34 +24,35 @@
     CGFloat screenHeight = screenRect.size.height;
     
     // get display scale
-    float scaleX = screenWidth / SIZE_X;
-    float scaleY = screenHeight / SIZE_Y;
+    _scaleX = screenWidth / SIZE_X;
+    _scaleY = screenHeight / SIZE_Y;
     
     
     // 画像の生成
     UIImage* onBtnImg = [UIImage imageNamed:@"button_on"];
     UIImage* offBtnImg = [UIImage imageNamed:@"button_off"];
     
+    // 電車画像
+    [self LoadTrainImage];
     
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
-
     // ボタンの生成(ON)
     UIButton *btnOn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnOn setImage:onBtnImg forState:(UIControlStateNormal)];
-    btnOn.frame = CGRectMake(40 * scaleX, 450 * scaleY, 70 * scaleX, 70 * scaleY);
+    btnOn.frame = CGRectMake(40 * _scaleX, 450 * _scaleY, 70 * _scaleX, 70 * _scaleY);
     [btnOn addTarget:self action:@selector(tapOnBtn:) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btnOn];
     
     // ボタン生成(OFF)
     UIButton *btnOff = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnOff setImage:offBtnImg forState:(UIControlStateNormal)];
-    btnOff.frame = CGRectMake(210 * scaleX, 450 * scaleY, 70 * scaleX, 70 * scaleY);
+    btnOff.frame = CGRectMake(210 * _scaleX, 450 * _scaleY, 70 * _scaleX, 70 * _scaleY);
+    [btnOff addTarget:self action:@selector(tapOffBtn:) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btnOff];
     
     // 駅名ラベル
     /*
     UILabel *stationLabel = [[UILabel alloc]init];
-    stationLabel.frame = CGRectMake((screenWidth / 2) - (150 / 2 * scaleX), 100 * scaleY, 150 * scaleX, 25 * scaleY);
+    stationLabel.frame = CGRectMake((screenWidth / 2) - (150 / 2 * _scaleX), 100 * _scaleY, 150 * _scaleX, 25 * _scaleY);
     //stationLabel.backgroundColor = [UIColor yellowColor];
     stationLabel.textColor = [UIColor blueColor];
     stationLabel.font = [UIFont fontWithName:@"AppleGothic" size:14];
@@ -64,7 +65,7 @@
         // 目的地
         UIButton *btnDestination = [UIButton buttonWithType:UIButtonTypeCustom];
         [btnDestination setBackgroundColor:color];
-        btnDestination.frame = CGRectMake(40 * scaleX, 50 * scaleY, 50 * scaleX, 40 * scaleY);
+        btnDestination.frame = CGRectMake(40 * _scaleX, 50 * _scaleY, 50 * _scaleX, 40 * _scaleY);
         [btnDestination setTitle:@"目的地" forState:UIControlStateNormal];
         // ボタンタップイベントを追加
         [btnDestination addTarget:self action:@selector(tapDestinationBtn:)
@@ -74,7 +75,7 @@
         // 目的地表示ボタン
         _stationNameBtn = [[UIButton alloc]init];
         _stationNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _stationNameBtn.frame = CGRectMake((40 + 50) * scaleX, 50 * scaleY, (SIZE_X - 90 - 40) * scaleX, 40 * scaleY);
+        _stationNameBtn.frame = CGRectMake((40 + 50) * _scaleX, 50 * _scaleY, (SIZE_X - 90 - 40) * _scaleX, 40 * _scaleY);
         
         [_stationNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_stationNameBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted]; //ハイライト時
@@ -89,13 +90,15 @@
         [self.view addSubview:_stationNameBtn];
         [_stationNameBtn setTitle:@"bbkdjflaj" forState:UIControlStateNormal];
     }
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
 
     // 駅までの表示距離
     {
         _distanceLabel = [[UILabel alloc] init];
         // getdistance
         int distance = [userDefault integerForKey:DISTANCE_KEY];
-        _distanceLabel.frame = CGRectMake((HARF_X - (150 / 2 )) * scaleX, 120 * scaleY, 150 * scaleX, 25 * scaleY);
+        _distanceLabel.frame = CGRectMake((HARF_X - (150 / 2 )) * _scaleX, 120 * _scaleY, 150 * _scaleX, 25 * _scaleY);
         [_distanceLabel setBackgroundColor:[UIColor greenColor]];
         NSString* distanceStr = @"";
         // km
@@ -114,7 +117,7 @@
     
     /*
     UILabel *stationLabel = [[UILabel alloc]init];
-    stationLabel.frame = CGRectMake((screenWidth / 2) - (150 / 2 * scaleX), 100 * scaleY, 150 * scaleX, 25 * scaleY);
+    stationLabel.frame = CGRectMake((screenWidth / 2) - (150 / 2 * _scaleX), 100 * _scaleY, 150 * _scaleX, 25 * _scaleY);
     //stationLabel.backgroundColor = [UIColor yellowColor];
     stationLabel.textColor = [UIColor blueColor];
     stationLabel.font = [UIFont fontWithName:@"AppleGothic" size:14];
@@ -160,9 +163,22 @@
     }];
 }
 
+/*
+    on tap
+*/
 -(void)tapOnBtn:(UIButton*)button
 {
+    [_trainImg startAnimating];
     [_locationManager startUpdatingLocation];
+}
+
+/*
+    off tap
+*/
+-(void)tapOffBtn:(UIButton*)button
+{
+    [_trainImg stopAnimating];
+    [_locationManager stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -224,5 +240,48 @@
 {
     NSLog(@"%@",@"位置情報が取得できませんでした。");
 }
+
+/*
+    電車
+*/
+
+/*
+    電車画像読み込み
+*/
+-(void)LoadTrainImage{
+    // rail
+    UIImageView *railImage = [[UIImageView alloc] initWithFrame:CGRectMake((HARF_X - 22.5) * _scaleX , 264 * _scaleY, 45 * _scaleX, 13 * _scaleY)];
+    railImage.image = [UIImage imageNamed:@"train_rail.png"];
+    [self.view addSubview:railImage];
+    
+    // Load images
+    NSArray *imageNames = @[@"train1.png", @"train2.png"];
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (int i = 0; i < imageNames.count; i++) {
+        [images addObject:[UIImage imageNamed:[imageNames objectAtIndex:i]]];
+    }
+    
+    // Normal Animation
+    _trainImg = [[UIImageView alloc] initWithFrame:CGRectMake((HARF_X - 24.5) * _scaleX , 220 * _scaleY, 49 * _scaleX, 49 * _scaleY)];
+    _trainImg.animationImages = images;
+    _trainImg.image = [UIImage imageNamed:@"train_off.png"];
+    _trainImg.animationDuration = 2;
+    [self.view addSubview:_trainImg];
+    
+
+    
+}
+
+/*
+    電車アニメーション
+*/
+-(void)StartTrainAnimation{
+    [_trainImg startAnimating];
+}
+
+-(void)StopTrainAnimation{
+    [_trainImg stopAnimating];
+}
+ 
 
 @end

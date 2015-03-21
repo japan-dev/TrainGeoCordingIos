@@ -12,7 +12,10 @@
 
 @interface ViewController : UIViewController<SearchNameViewDelegate, CLLocationManagerDelegate>
 
+// object
 @property(nonatomic) CLLocationManager* locationManager;
+@property(nonatomic) UIImageView* trainImg;
+
 @property(nonatomic) NSString* stationName;
 
 @property(nonatomic) CGFloat stationLat;
@@ -22,7 +25,13 @@
 @property(nonatomic) UIButton* stationNameBtn;
 @property(nonatomic) UILabel* distanceLabel;
 
+// value
+@property float scaleX;
+@property float scaleY;
+
 -(void)tapDestinationBtn:(UIButton*)button;
+-(void)LoadTrainImage;
+-(void)StartTrainAnimation;
 
 
 @end

@@ -169,6 +169,7 @@
 -(void)tapOnBtn:(UIButton*)button
 {
     [_trainImg startAnimating];
+    // 位置情報取得開始
     [_locationManager startUpdatingLocation];
 }
 

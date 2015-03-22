@@ -134,7 +134,7 @@
     // 位置情報
     _locationManager = [[CLLocationManager alloc]init];
     _locationManager.delegate = self;
-    _locationManager.distanceFilter = 1000.0;
+    _locationManager.distanceFilter = 50.0f;
     
     if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
     {

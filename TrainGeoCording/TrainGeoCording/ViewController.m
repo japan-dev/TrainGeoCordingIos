@@ -27,7 +27,38 @@
     _scaleX = screenWidth / SIZE_X;
     _scaleY = screenHeight / SIZE_Y;
     
+    /*
     // get time
+    {
+        NSDate *now = [NSDate date];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSUInteger flags;
+        NSDateComponents *comps;
+        
+        flags = NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+        comps = [calendar components:flags fromDate:now];
+        _time = (int)comps.hour;
+        
+        NSString* imgName = @"";
+        if(_time >= 18 && _time <= 5){
+            imgName = @"daytime.png";
+        }
+        else{
+            imgName = @"night2.png";
+        }
+        //imgName = @"daytime.png";
+        
+        UIImage* backImg = [UIImage imageNamed:imgName];
+        
+        CGRect rect = CGRectMake(0, 90 * _scaleX, screenWidth * _scaleX, 222 * _scaleY);
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
+        
+        // 画像の読み込み
+        imageView.image = backImg;
+        // UIImageViewのインスタンスをビューに追加
+        [self.view addSubview:imageView];
+    }
+    */
     
     // 画像の生成
     UIImage* onBtnImg = [UIImage imageNamed:@"button_on"];

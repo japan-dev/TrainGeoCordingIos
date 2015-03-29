@@ -31,6 +31,7 @@
 // value
 @property float scaleX;
 @property float scaleY;
+@property int time;
 
 -(void)tapDestinationBtn:(UIButton*)button;
 -(void)LoadTrainImage;
